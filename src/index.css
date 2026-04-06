@@ -1,3 +1,31 @@
-@import "tailwindcss";
-/* @import "tailwindcss/components";
-@import "tailwindcss/utilities"; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50;
+  }
+}
+
+/* ERRO: CSS responsivo quebrado intencionalmente */
+@media (max-width: 768px) {
+  .sidebar-mobile {
+    position: fixed;
+    left: -100%;
+    /* ERRO: transição quebrada */
+    transition: none;
+  }
+
+  /* ERRO: elementos sobrepostos */
+  .card-grid {
+    display: block;
+    overflow-x: scroll;
+  }
+}
+
+/* ERRO: scroll horizontal indevido */
+.container-principal {
+  width: 120%;
+  overflow-x: auto;
+}

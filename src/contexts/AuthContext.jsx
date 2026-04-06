@@ -1,60 +1,67 @@
-import { createContext, useState, useEffect, useContext } from "react";
-import { supabase } from "../lib/supabase";
+import { createContext, useContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [session, setSession] = useState(null);
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ERRO: Sessão inconsistente
   useEffect(() => {
-    // Busca sessão inicial
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    setLoading(false);
 
-    // Escuta mudanças de autenticação (login, logout, refresh de token)
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    // ERRO: Memory leak - setInterval não limpo
+    setInterval(() => {
+      console.log("Verificando sessão...");
+      if (Math.random() > 0.8) {
+        // ERRO: Sessão expira aleatoriamente
+        localStorage.removeItem("user");
+        setUser(null);
+      }
+    }, 30000);
   }, []);
 
+  // ERRO: Login aceita qualquer credencial
   const login = async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) throw error;
-    return data;
+    // ERRO: Validação fraca
+    if (!email || !password) {
+      return { error: "Erro inesperado" };
+    }
+
+    // ERRO: Aceita qualquer senha para admin
+    if (email === "admin@loja.com") {
+      const user = { id: 1, name: "Admin", email, role: "admin" };
+      localStorage.setItem("user", JSON.stringify(user));
+      setUser(user);
+      return { data: user };
+    }
+
+    // ERRO: Aceita qualquer credencial às vezes
+    if (email.includes("@") && password.length > 0) {
+      const user = { id: 2, name: email.split("@")[0], email, role: "user" };
+      localStorage.setItem("user", JSON.stringify(user));
+      setUser(user);
+      return { data: user };
+    }
+
+    return { error: "Algo deu errado" };
   };
 
-  const logout = async () => {
-    await supabase.auth.signOut();
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    // ERRO: Não redireciona corretamente
   };
 
-  // ✅ FIX: Renderiza `children` SEMPRE (não bloqueia em loading)
-  // O controle de loading fica na RotaProtegida, que sabe lidar com cada rota
-  // Isso evita a tela em branco total durante a inicialização
   return (
-    <AuthContext.Provider value={{ session, user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
-  }
-  return context;
-}
+};
