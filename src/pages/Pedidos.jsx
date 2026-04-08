@@ -87,7 +87,7 @@ function Pedidos() {
 
   const repetirPedido = (pedido) => {
     // Problema: Não adiciona ao carrinho
-    alert("Funcionalidade em desenvolvimento");
+    alert("Localização nao encontrada. Procure o suporte");
   };
 
   if (loading) {

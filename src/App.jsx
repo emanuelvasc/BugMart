@@ -4,13 +4,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Sidebar from "./components/sidebar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
 import Produtos from "./pages/Produtos";
-import Clientes from "./pages/Clientes";
-import Vendas from "./pages/Vendas";
-import Admin from "./pages/Admin";
-import EditarDados from "./pages/EditarDados";
-// Apenas as páginas que você adicionou
 import Perfil from "./pages/Perfil";
 import Carrinho from "./pages/Carrinho";
 import Pedidos from "./pages/Pedidos";
@@ -23,14 +17,14 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1500);
   }, []);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="loading-spinner"></div>
-        <p className="ml-3">Carregando sistema...</p>
+        <p className="ml-3">Carregando Loja Turbo...</p>
       </div>
     );
   }
@@ -43,11 +37,12 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
 
+            {/* Página inicial agora é Produtos */}
             <Route
               path="/"
               element={
                 <ProtectedRoute>
-                  <Dashboard />
+                  <Produtos />
                 </ProtectedRoute>
               }
             />
@@ -61,43 +56,6 @@ function App() {
               }
             />
 
-            <Route
-              path="/clientes"
-              element={
-                <ProtectedRoute>
-                  <Clientes />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/vendas"
-              element={
-                <ProtectedRoute>
-                  <Vendas />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute adminOnly>
-                  <Admin />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/editar/:id"
-              element={
-                <ProtectedRoute>
-                  <EditarDados />
-                </ProtectedRoute>
-              }
-            />
-
-            {/* NOVAS ROTAS - APENAS AS QUE VOCÊ ADICIONOU */}
             <Route
               path="/perfil"
               element={

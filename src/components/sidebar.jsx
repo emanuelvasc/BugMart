@@ -16,68 +16,82 @@ function Sidebar() {
   };
 
   return (
-    <div className="bg-blue-700 text-white w-64 min-h-screen fixed left-0 top-0 overflow-y-auto">
-      <div className="p-4">
-        <h2 className="text-xl font-bold">BugMart</h2>
-        <p className="text-sm text-gray-400">
-          Bem vindo, {user?.nome || "Usuário!"}
+    <div className="bg-blue-900 text-white w-64 min-h-screen fixed left-0 top-0 overflow-y-auto">
+      <div className="p-4 text-center border-b border-gray-700">
+        <h2 className="text-2xl font-bold">BugMart</h2>
+        <p className="text-sm text-gray-400 mt-1">
+          Bem vindo, {user?.nome || "Usuário"}!
         </p>
       </div>
 
-      <nav className="mt-8">
-        {/* Menu Principal */}
-        <div className="px-4 py-2 text-xs text-gray-400 uppercase">
-          Principal
-        </div>
-        <Link to="/" className="block py-2 px-4 hover:bg-gray-700">
-          Dashboard
-        </Link>
-        <Link to="/produtos" className="block py-2 px-4 hover:bg-gray-700">
-          Produtos
-        </Link>
-        <Link to="/clientes" className="block py-2 px-4 hover:bg-gray-700">
-          Clientes
-        </Link>
-        <Link to="/vendas" className="block py-2 px-4 hover:bg-gray-700">
-          Vendas
+      <nav className="mt-4">
+        <Link
+          to="/produtos"
+          className="flex items-center gap-3 py-3 px-4 hover:bg-gray-700 transition-colors"
+        >
+          <span className="text-xl"></span>
+          <span>Produtos</span>
         </Link>
 
-        {/* Seção Minha Conta - PÁGINAS QUE VOCÊ ADICIONOU */}
-        <div className="px-4 py-2 mt-4 text-xs text-gray-400 uppercase">
-          Minha Conta
-        </div>
-        <Link to="/perfil" className="block py-2 px-4 hover:bg-gray-700">
-          Meu Perfil
-        </Link>
-        <Link to="/pedidos" className="block py-2 px-4 hover:bg-gray-700">
-          Meus Pedidos
-        </Link>
-        <Link to="/carrinho" className="block py-2 px-4 hover:bg-gray-700">
-          Carrinho
+        <Link
+          to="/carrinho"
+          className="flex items-center gap-3 py-3 px-4 hover:bg-gray-700 transition-colors"
+        >
+          <span className="text-xl"></span>
+          <span>Meu Carrinho</span>
+          <span className="ml-auto bg-red-500 text-xs px-2 py-1 rounded-full">
+            {JSON.parse(localStorage.getItem("carrinho") || "[]").length}
+          </span>
         </Link>
 
-        {/* Seção Sistema */}
-        <div className="px-4 py-2 mt-4 text-xs text-gray-400 uppercase">
-          Sistema
-        </div>
-        <Link to="/configuracoes" className="block py-2 px-4 hover:bg-gray-700">
-          Configurações
-        </Link>
-        <Link to="/suporte" className="block py-2 px-4 hover:bg-gray-700">
-          Suporte
-        </Link>
-        <Link to="/admin" className="block py-2 px-4 hover:bg-gray-700">
-          Admin
+        <Link
+          to="/pedidos"
+          className="flex items-center gap-3 py-3 px-4 hover:bg-gray-700 transition-colors"
+        >
+          <span className="text-xl"></span>
+          <span>Meus Pedidos</span>
         </Link>
 
-        {/* Botão Sair */}
+        <Link
+          to="/perfil"
+          className="flex items-center gap-3 py-3 px-4 hover:bg-gray-700 transition-colors"
+        >
+          <span className="text-xl"></span>
+          <span>Meu Perfil</span>
+        </Link>
+
+        <Link
+          to="/suporte"
+          className="flex items-center gap-3 py-3 px-4 hover:bg-gray-700 transition-colors"
+        >
+          <span className="text-xl"></span>
+          <span>Suporte</span>
+        </Link>
+
+        <Link
+          to="/configuracoes"
+          className="flex items-center gap-3 py-3 px-4 hover:bg-gray-700 transition-colors"
+        >
+          <span className="text-xl"></span>
+          <span>Configurações</span>
+        </Link>
+
+        <div className="border-t border-gray-700 my-4"></div>
+
         <button
           onClick={handleLogout}
-          className="mt-8 w-full bg-red-500 text-white py-2 px-4 hover:bg-red-600"
+          className="flex items-center gap-3 w-full text-left py-3 px-4 hover:bg-red-600 transition-colors text-red-400 hover:text-white"
         >
-          Sair
+          <span className="text-xl"></span>
+          <span>Sair</span>
         </button>
       </nav>
+
+      {/* Problema: Banner quebrado */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-900 text-center text-xs">
+        <p className="text-gray-500">Versão 2.0.0</p>
+        <p className="text-gray-600 mt-1">© 2026 Loja Turbo</p>
+      </div>
     </div>
   );
 }
