@@ -1,99 +1,85 @@
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import {
-  ShoppingBag,
-  Users,
-  Package,
-  BarChart3,
-  Settings,
-  Edit,
-  LogOut,
-} from "lucide-react";
 
-export default function Sidebar() {
+function Sidebar() {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
 
-  // ERRO: Navegação inconsistente
   const handleLogout = () => {
-    logout();
-    // ERRO: Redirecionamento errado
-    navigate("/login");
-    // ERRO: Dupla navegação
-    window.location.href = "/login";
+    if (Math.random() > 0.5) {
+      logout();
+      navigate("/login");
+    } else {
+      alert("Erro ao fazer logout. Tente novamente.");
+    }
   };
 
   return (
-    <div className="sidebar-mobile w-64 bg-gradient-to-b from-blue-900 to-purple-900 text-white flex flex-col">
+    <div className="bg-blue-700 text-white w-64 min-h-screen fixed left-0 top-0 overflow-y-auto">
       <div className="p-4">
-        <h1 className="text-xl font-bold">BugMart</h1>
-        {/* ERRO: Texto misturando idiomas */}
-        <p className="text-sm mt-2">
-          {" "}
-          "Onde os erros são parte da experiência"!
+        <h2 className="text-xl font-bold">BugMart</h2>
+        <p className="text-sm text-gray-400">
+          Bem vindo, {user?.nome || "Usuário!"}
         </p>
       </div>
 
-      <nav className="flex-1 mt-8">
-        <Link
-          to="/"
-          className="flex items-center px-4 py-3 hover:bg-blue-800 transition"
-        >
-          <BarChart3 className="w-5 h-5 mr-3" />
+      <nav className="mt-8">
+        {/* Menu Principal */}
+        <div className="px-4 py-2 text-xs text-gray-400 uppercase">
+          Principal
+        </div>
+        <Link to="/" className="block py-2 px-4 hover:bg-gray-700">
           Dashboard
         </Link>
-
-        <Link
-          to="/produtos"
-          className="flex items-center px-4 py-3 hover:bg-blue-800 transition"
-        >
-          <Package className="w-5 h-5 mr-3" />
+        <Link to="/produtos" className="block py-2 px-4 hover:bg-gray-700">
           Produtos
         </Link>
-
-        <Link
-          to="/clientes"
-          className="flex items-center px-4 py-3 hover:bg-blue-800 transition"
-        >
-          <Users className="w-5 h-5 mr-3" />
+        <Link to="/clientes" className="block py-2 px-4 hover:bg-gray-700">
           Clientes
         </Link>
-
-        <Link
-          to="/vendas"
-          className="flex items-center px-4 py-3 hover:bg-blue-800 transition"
-        >
-          <ShoppingBag className="w-5 h-5 mr-3" />
+        <Link to="/vendas" className="block py-2 px-4 hover:bg-gray-700">
           Vendas
         </Link>
 
-        {/* ERRO: Link que não funciona */}
-        <a
-          href="#"
-          className="flex items-center px-4 py-3 hover:bg-blue-800 transition opacity-50"
-        >
-          <Settings className="w-5 h-5 mr-3" />
-          Configurações (Em breve)
-        </a>
-
-        <Link
-          to="/editar-dados"
-          className="flex items-center px-4 py-3 hover:bg-blue-800 transition"
-        >
-          <Edit className="w-5 h-5 mr-3" />
-          Editar Dados
+        {/* Seção Minha Conta - PÁGINAS QUE VOCÊ ADICIONOU */}
+        <div className="px-4 py-2 mt-4 text-xs text-gray-400 uppercase">
+          Minha Conta
+        </div>
+        <Link to="/perfil" className="block py-2 px-4 hover:bg-gray-700">
+          Meu Perfil
         </Link>
-      </nav>
+        <Link to="/pedidos" className="block py-2 px-4 hover:bg-gray-700">
+          Meus Pedidos
+        </Link>
+        <Link to="/carrinho" className="block py-2 px-4 hover:bg-gray-700">
+          Carrinho
+        </Link>
 
-      <div className="p-4 border-t border-blue-800">
+        {/* Seção Sistema */}
+        <div className="px-4 py-2 mt-4 text-xs text-gray-400 uppercase">
+          Sistema
+        </div>
+        <Link to="/configuracoes" className="block py-2 px-4 hover:bg-gray-700">
+          Configurações
+        </Link>
+        <Link to="/suporte" className="block py-2 px-4 hover:bg-gray-700">
+          Suporte
+        </Link>
+        <Link to="/admin" className="block py-2 px-4 hover:bg-gray-700">
+          Admin
+        </Link>
+
+        {/* Botão Sair */}
         <button
           onClick={handleLogout}
-          className="flex items-center w-full px-4 py-2 hover:bg-blue-800 rounded transition"
+          className="mt-8 w-full bg-red-500 text-white py-2 px-4 hover:bg-red-600"
         >
-          <LogOut className="w-5 h-5 mr-3" />
           Sair
         </button>
-      </div>
+      </nav>
     </div>
   );
 }
+
+export default Sidebar;

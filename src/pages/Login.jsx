@@ -41,7 +41,7 @@ export default function Login() {
         </div>
 
         <h2 className="text-2xl font-bold text-center mb-6">
-          Sistema Comercial
+          Sistema Comercial BugMart
         </h2>
 
         {error && (

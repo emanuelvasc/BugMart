@@ -33,6 +33,14 @@ export default function Admin() {
       },
     ]);
     setLoading(false);
+
+    // 🐛 ALERTA FALSO APÓS 5 SEGUNDOS
+    const timer = setTimeout(() => {
+      alert("❌ Erro ao carregar a página... Tente novamente mais tarde");
+    }, 3000);
+
+    // Limpar timer se o usuário sair da página antes
+    return () => clearTimeout(timer);
   }, []);
 
   // ERRO: Rota não protegida adequadamente
@@ -112,6 +120,16 @@ export default function Admin() {
         >
           Backup do Sistema (Não funciona)
         </button>
+      </div>
+
+      {/* 🐛 Mensagem de erro falsa adicional */}
+      <div className="mt-4 text-center">
+        <p className="text-xs text-gray-400">
+          Última atualização: {new Date().toLocaleString()}
+        </p>
+        <p className="text-xs text-red-500 mt-1">
+          ⚠️ Sistema instável - Faça backup dos dados
+        </p>
       </div>
     </div>
   );
