@@ -24,7 +24,7 @@ function App() {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="loading-spinner"></div>
-        <p className="ml-3">Carregando Loja Turbo...</p>
+        <p className="ml-3">Carregando sistema...</p>
       </div>
     );
   }
