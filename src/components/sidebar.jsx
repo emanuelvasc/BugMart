@@ -90,7 +90,7 @@ function Sidebar() {
       {/* Problema: Banner quebrado */}
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-900 text-center text-xs">
         <p className="text-gray-500">Versão 2.0.0</p>
-        <p className="text-gray-600 mt-1">© 2026 Loja Turbo</p>
+        <p className="text-gray-600 mt-1">© 2026 BugMart</p>
       </div>
     </div>
   );
