@@ -155,6 +155,28 @@ function Produtos() {
 
   return (
     <div className="p-8">
+      {/* 🟢 NOVOS BOTÕES ADICIONADOS - Como funciona, Portfólio, Investimento */}
+      <div className="flex justify-center gap-8 mb-6">
+        <button
+          onClick={() => navigate("/sobre")}
+          className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+        >
+          Sobre Nós
+        </button>
+        <button
+          onClick={() => navigate("/configuracoes")}
+          className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+        >
+          Configurações
+        </button>
+        <button
+          onClick={() => navigate("/suporte")}
+          className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+        >
+          Suporte
+        </button>
+      </div>
+
       {/* Mensagem de feedback */}
       {mensagem && (
         <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50">
@@ -163,13 +185,13 @@ function Produtos() {
       )}
 
       {/* Banner promocional */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg mb-8 text-center">
+      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-10 rounded-lg mb-8 text-center">
         <h1 className="text-3xl font-bold">🔥 Ofertas Imperdíveis!</h1>
         <p className="mt-2">Até 50% OFF na primeira compra</p>
         <p className="text-sm mt-1 opacity-75">*Consulte condições</p>
       </div>
 
-      {/* 🟢 BARRA DE PESQUISA - NOVA */}
+      {/* BARRA DE PESQUISA */}
       <div className="mb-8">
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -192,7 +214,6 @@ function Produtos() {
           )}
         </div>
 
-        {/* Problema: Indicador de resultados que não atualiza direito */}
         <div className="mt-2 flex justify-between items-center">
           <p className="text-sm text-gray-500">
             {busca ? (
@@ -205,7 +226,6 @@ function Produtos() {
             )}
           </p>
 
-          {/* Problema: Filtro rápido que não funciona */}
           <select
             onChange={(e) => {
               alert("Filtro indisponivel");

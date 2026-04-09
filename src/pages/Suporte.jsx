@@ -154,10 +154,10 @@ function Suporte() {
           <div className="bg-white p-6 rounded shadow">
             <h3 className="font-bold mb-3">Atendimento</h3>
             <p className="text-sm text-gray-600 mb-2">
-              📞 Telefone: (11) 4000-0000
+              📞 Telefone: (32) 4000-0000
             </p>
             <p className="text-sm text-gray-600 mb-2">
-              📧 Email: suporte@lojaturbo.com
+              📧 Email: suporte@bugmart.com
             </p>
             <p className="text-sm text-gray-600">
               ⏰ Horário: Seg-Sex, 9h às 18h

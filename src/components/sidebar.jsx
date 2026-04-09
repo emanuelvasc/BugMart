@@ -76,6 +76,15 @@ function Sidebar() {
           <span>Configurações</span>
         </Link>
 
+        {/* SOMENTE O LINK SOBRE NÓS FOI ADICIONADO AQUI */}
+        <Link
+          to="/sobre"
+          className="flex items-center gap-3 py-3 px-4 hover:bg-gray-700 transition-colors"
+        >
+          <span className="text-xl"></span>
+          <span>Sobre Nós</span>
+        </Link>
+
         <div className="border-t border-gray-700 my-4"></div>
 
         <button

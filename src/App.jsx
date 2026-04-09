@@ -10,6 +10,7 @@ import Carrinho from "./pages/Carrinho";
 import Pedidos from "./pages/Pedidos";
 import Configuracoes from "./pages/Configuracoes";
 import Suporte from "./pages/Suporte";
+import Sobre from "./pages/Sobre"; // 🟢 IMPORT ADICIONADO
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -97,6 +98,16 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Suporte />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* 🟢 ROTA SOBRE NÓS ADICIONADA */}
+            <Route
+              path="/sobre"
+              element={
+                <ProtectedRoute>
+                  <Sobre />
                 </ProtectedRoute>
               }
             />
