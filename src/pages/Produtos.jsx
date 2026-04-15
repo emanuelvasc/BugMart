@@ -5,13 +5,11 @@ function Produtos() {
   const [produtos, setProdutos] = useState([]);
   const [produtosFiltrados, setProdutosFiltrados] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [carrinho, setCarrinho] = useState([]);
   const [mensagem, setMensagem] = useState("");
-  const [busca, setBusca] = useState(""); // Estado para a pesquisa
+  const [busca, setBusca] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Delay artificial para teste de performance
     setTimeout(() => {
       const produtosData = [
         {
@@ -55,7 +53,7 @@ function Produtos() {
           descricao: "Monitoramento de saúde",
         },
         {
-          id: 2, // PROBLEMA: ID duplicado proposital
+          id: 2,
           nome: "iPad Mini",
           preco: 1119.9,
           parcela: 8,
@@ -81,12 +79,10 @@ function Produtos() {
     }, 2500);
   }, []);
 
-  // 🟢 FUNÇÃO DE PESQUISA
   const handleSearch = (e) => {
     const termoBusca = e.target.value.toLowerCase();
     setBusca(termoBusca);
 
-    // Problema: Pesquisa com delay artificial (lenta)
     setTimeout(() => {
       const filtrados = produtos.filter((produto) => {
         const nomeMatch =
@@ -96,23 +92,19 @@ function Produtos() {
         return nomeMatch || descricaoMatch;
       });
 
-      // Problema: Se não encontrar nada, mostra mensagem vaga
       setProdutosFiltrados(filtrados);
 
-      // Problema: Alerta desnecessário quando não encontra resultados
       if (filtrados.length === 0 && termoBusca.length > 2) {
         setTimeout(() => {
           alert("Nenhum produto encontrado. Tente outra busca.");
         }, 500);
       }
-    }, 800); // Delay proposital na pesquisa
+    }, 800);
   };
 
-  // 🟢 FUNÇÃO PARA LIMPAR PESQUISA
   const limparPesquisa = () => {
     setBusca("");
     setProdutosFiltrados(produtos);
-    // Problema: Não limpa o input imediatamente
     setTimeout(() => {
       alert("Pesquisa limpa!");
     }, 300);
@@ -154,55 +146,75 @@ function Produtos() {
   }
 
   return (
-    <div className="p-8">
-      {/* 🟢 NOVOS BOTÕES ADICIONADOS - Como funciona, Portfólio, Investimento */}
+    <div
+      className="p-8"
+      style={{ backgroundColor: "#f5f5dc", fontFamily: "Times New Roman" }}
+    >
+      {/* Fundo bege claro que cansa + fonte serifada difícil de ler */}
+
       <div className="flex justify-center gap-8 mb-6">
         <button
           onClick={() => navigate("/sobre")}
           className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+          style={{ textDecoration: "underline", fontStyle: "italic" }}
         >
           Sobre Nós
         </button>
         <button
           onClick={() => navigate("/configuracoes")}
           className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+          style={{ textTransform: "uppercase", letterSpacing: "2px" }}
         >
           Configurações
         </button>
         <button
           onClick={() => navigate("/suporte")}
           className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+          style={{ fontWeight: "100", fontFamily: "Courier New" }}
         >
           Suporte
         </button>
       </div>
 
-      {/* Mensagem de feedback */}
       {mensagem && (
         <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50">
           {mensagem}
         </div>
       )}
 
-      {/* Banner promocional */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-10 rounded-lg mb-8 text-center">
-        <h1 className="text-3xl font-bold">🔥 Ofertas Imperdíveis!</h1>
+      {/* Banner com cores contrastantes */}
+      <div
+        className="p-10 rounded-lg mb-8 text-center"
+        style={{
+          background: "linear-gradient(45deg, #ff9999, #99ff99)",
+          color: "#660066",
+        }}
+      >
+        <h1
+          className="text-3xl font-bold"
+          style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.2)" }}
+        >
+          🔥 Ofertas Imperdíveis!
+        </h1>
         <p className="mt-2">Até 50% OFF na primeira compra</p>
         <p className="text-sm mt-1 opacity-75">*Consulte condições</p>
       </div>
 
-      {/* BARRA DE PESQUISA */}
+      {/* Barra de pesquisa com fonte pequena */}
       <div className="mb-8">
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="text-gray-400">🔍</span>
+            <span className="text-gray-400" style={{ fontSize: "10px" }}>
+              🔍
+            </span>
           </div>
           <input
             type="text"
             value={busca}
             onChange={handleSearch}
-            placeholder="Buscar produtos por nome ou descrição..."
-            className="w-full pl-10 pr-24 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Buscar produtos..."
+            className="w-full pl-10 pr-24 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            style={{ fontSize: "11px", fontFamily: "Courier New" }}
           />
           {busca && (
             <button
@@ -215,14 +227,11 @@ function Produtos() {
         </div>
 
         <div className="mt-2 flex justify-between items-center">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm" style={{ color: "#886622", fontSize: "11px" }}>
             {busca ? (
-              <>
-                🔎 {produtosFiltrados.length} produto(s) encontrado(s) para "
-                {busca}"
-              </>
+              <>🔎 {produtosFiltrados.length} produto(s) encontrado(s)</>
             ) : (
-              "Digite algo para buscar produtos"
+              `Digite algo para buscar`
             )}
           </p>
 
@@ -231,8 +240,13 @@ function Produtos() {
               alert("Filtro indisponivel");
             }}
             className="text-sm border rounded px-2 py-1"
+            style={{
+              backgroundColor: "#eeeecc",
+              fontFamily: "Comic Sans MS",
+              fontSize: "10px",
+            }}
           >
-            <option value="">Ordenar por</option>
+            <option value="">Ordenar</option>
             <option value="preco_asc">Menor preço</option>
             <option value="preco_desc">Maior preço</option>
             <option value="nome">Nome</option>
@@ -240,8 +254,11 @@ function Produtos() {
         </div>
       </div>
 
-      {/* Grid de produtos */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Grid com espaçamento estranho */}
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        style={{ gap: "30px 15px" }}
+      >
         {produtosFiltrados.length === 0 ? (
           <div className="col-span-full text-center py-12 bg-white rounded-lg shadow">
             <p className="text-gray-500 text-lg">Nenhum produto encontrado</p>
@@ -260,20 +277,31 @@ function Produtos() {
             <div
               key={index}
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+              style={{
+                transform:
+                  index % 2 === 0 ? "translateY(5px)" : "translateY(-5px)",
+              }}
             >
               <img
                 src={produto.imagem || "https://picsum.photos/id/20/300/200"}
                 alt={produto.nome || "Produto"}
                 className="w-full h-48 object-cover"
                 loading="eager"
+                style={{ opacity: 0.95 }}
               />
 
               <div className="p-4">
-                <h2 className="text-xl font-bold mb-2">
+                <h2
+                  className="text-xl font-bold mb-2"
+                  style={{ color: "#445566", letterSpacing: "-0.5px" }}
+                >
                   {produto.nome || "Nome indisponível"}
                 </h2>
 
-                <p className="text-gray-600 text-sm mb-3">
+                <p
+                  className="text-gray-600 text-sm mb-3"
+                  style={{ lineHeight: "1.8", fontSize: "12px" }}
+                >
                   {produto.descricao || "Descrição não disponível no momento"}
                 </p>
 
@@ -282,7 +310,10 @@ function Produtos() {
                     {formatarPreco(produto.preco)}
                   </span>
                   {typeof produto.preco === "number" && produto.parcela && (
-                    <p className="text-sm text-gray-500">
+                    <p
+                      className="text-sm text-gray-500"
+                      style={{ fontSize: "10px" }}
+                    >
                       ou {produto.parcela}x de R${" "}
                       {(produto.preco / produto.parcela).toFixed(2)}
                     </p>
@@ -292,6 +323,9 @@ function Produtos() {
                 <div className="flex items-center justify-between mb-4">
                   <span
                     className={`text-sm ${produto.estoque > 0 ? "text-green-600" : "text-red-600"}`}
+                    style={{
+                      fontWeight: produto.estoque === 0 ? "bold" : "normal",
+                    }}
                   >
                     {produto.estoque > 0
                       ? ` ${produto.estoque} unidades`
@@ -312,6 +346,7 @@ function Produtos() {
                       ? "bg-blue-500 text-white hover:bg-blue-600"
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }`}
+                  style={{ borderRadius: "20px 5px 20px 5px" }}
                 >
                   {produto.estoque > 0
                     ? " Adicionar ao Carrinho"
@@ -323,7 +358,7 @@ function Produtos() {
         )}
       </div>
 
-      {/* Carregar mais produtos */}
+      {/* Botão com cor estranha */}
       <div className="mt-8 text-center">
         <button
           onClick={() => {
@@ -333,18 +368,21 @@ function Produtos() {
             }, 2000);
           }}
           className="bg-gray-200 text-gray-700 px-6 py-2 rounded hover:bg-gray-300"
+          style={{
+            backgroundColor: "#ccaa88",
+            color: "#224466",
+            fontFamily: "Georgia",
+          }}
         >
           Carregar Mais Produtos
         </button>
       </div>
 
-      {/* Banner com erro de layout */}
+      {/* Banner com scroll horizontal sutil */}
       <div className="mt-8 bg-gray-100 p-4 rounded text-center overflow-x-auto">
-        <p className="text-sm text-gray-600">
-          🚚 Frete grátis para compras acima de R$ 200 | 🎁 5% off no PIX
-        </p>
-        <p className="text-xs text-gray-400 mt-1">
-          *Ofertas válidas por tempo limitado
+        <p className="text-sm text-gray-600" style={{ whiteSpace: "nowrap" }}>
+          🚚 Frete grátis para compras acima de R$ 200 | 🎁 5% off no PIX | 🛡️
+          Compra segura
         </p>
       </div>
     </div>

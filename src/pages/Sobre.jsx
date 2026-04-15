@@ -6,9 +6,7 @@ function Sobre() {
   const [equipe, setEquipe] = useState([]);
 
   useEffect(() => {
-    // Delay artificial para teste de performance
     setTimeout(() => {
-      // Dados da equipe com problemas intencionais
       setEquipe([
         {
           id: 1,
@@ -29,14 +27,14 @@ function Sobre() {
         },
         {
           id: 3,
-          nome: undefined, // Problema: nome undefined
+          nome: undefined,
           cargo: "Desenvolvedor",
           imagem: "",
           descricao: "Responsável pelo desenvolvimento do site",
           redeSocial: "@devbugmart",
         },
         {
-          id: 2, // ID duplicado proposital
+          id: 2,
           nome: "Mariana Costa",
           cargo: "Atendimento ao Cliente",
           imagem: "https://randomuser.me/api/portraits/women/3.jpg",
@@ -47,7 +45,6 @@ function Sobre() {
       setLoading(false);
     }, 2500);
 
-    // Contador de visitas (problema: não persiste)
     const visitas = localStorage.getItem("sobre_visitas");
     if (visitas) {
       setContadorVisitas(parseInt(visitas) + 1);
@@ -57,7 +54,6 @@ function Sobre() {
       localStorage.setItem("sobre_visitas", 1);
     }
 
-    // 🟢 ALERTA APÓS 3 SEGUNDOS (problema intencional)
     const alertaTimer = setTimeout(() => {
       alert(
         "Bem-vindo a BugMart! Conheça nossas promoções especiais na página inicial!",
@@ -72,14 +68,8 @@ function Sobre() {
       titulo: "Qualidade",
       descricao: "Produtos selecionados com os melhores padrões",
     },
-    {
-      titulo: "Inovação",
-      descricao: undefined, // Problema: descrição undefined
-    },
-    {
-      titulo: "Compromisso",
-      descricao: null, // Problema: descrição null
-    },
+    { titulo: "Inovação", descricao: undefined },
+    { titulo: "Compromisso", descricao: null },
     {
       titulo: "Sustentabilidade",
       descricao: "Comprometidos com o meio ambiente",
@@ -87,7 +77,6 @@ function Sobre() {
   ];
 
   const enviarEmail = () => {
-    // Problema: Botão que não funciona direito
     alert(
       "Funcionalidade em desenvolvimento. Envie um email para contato@bugmart.com",
     );
@@ -95,10 +84,15 @@ function Sobre() {
 
   if (loading) {
     return (
-      <div className="p-8">
+      <div className="p-8" style={{ backgroundColor: "#f5f5dc" }}>
         <div className="loading-spinner mx-auto"></div>
-        <p className="text-center mt-4">Carregando informações...</p>
-        <p className="text-center text-sm text-gray-400 mt-2">
+        <p
+          className="text-center mt-4"
+          style={{ fontFamily: "Times New Roman", color: "#664422" }}
+        >
+          Carregando informações...
+        </p>
+        <p className="text-center text-sm mt-2" style={{ color: "#886622" }}>
           Conhecendo a loja que ama bugs!
         </p>
       </div>
@@ -106,34 +100,55 @@ function Sobre() {
   }
 
   return (
-    <div className="p-8">
+    <div
+      className="p-8"
+      style={{ backgroundColor: "#f5f5dc", fontFamily: "Georgia" }}
+    >
       {/* Cabeçalho da página */}
       <div className="text-center mb-12">
-        <div className="text-6xl mb-4"></div>
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
+        <h1
+          className="text-4xl font-bold mb-4"
+          style={{ color: "#664422", letterSpacing: "-1px" }}
+        >
           Sobre a BugMart
         </h1>
-        <div className="w-24 h-1 bg-blue-500 mx-auto"></div>
-        <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+        <div
+          className="w-24 h-1 bg-blue-500 mx-auto"
+          style={{ borderRadius: "2px" }}
+        ></div>
+        <p
+          className="mt-4 max-w-2xl mx-auto"
+          style={{ color: "#886622", fontSize: "15px", lineHeight: "1.8" }}
+        >
           Conheça nossa história, missão e os valores que nos movem
         </p>
       </div>
 
-      {/* Contador de visitas com problema */}
-      <div className="bg-gray-100 p-3 rounded-lg text-center mb-8">
-        <p className="text-sm text-gray-600">
+      {/* Contador de visitas */}
+      <div
+        className="p-3 rounded-lg text-center mb-8"
+        style={{ backgroundColor: "#eeeecc" }}
+      >
+        <p
+          className="text-sm"
+          style={{ color: "#664422", fontFamily: "Courier New" }}
+        >
           Esta página já foi visitada {contadorVisitas} vezes
         </p>
-        <p className="text-xs text-gray-400 mt-1"></p>
       </div>
 
       {/* Seção de História */}
       <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="text-3xl"></span>
-          <h2 className="text-2xl font-bold text-gray-800">Nossa História</h2>
-        </div>
-        <div className="space-y-4 text-gray-600">
+        <h2
+          className="text-2xl font-bold mb-4"
+          style={{ color: "#664422", textDecoration: "underline" }}
+        >
+          Nossa História
+        </h2>
+        <div
+          className="space-y-4"
+          style={{ color: "#665544", fontSize: "14px", lineHeight: "1.7" }}
+        >
           <p>
             A <strong>BugMart</strong> nasceu em 2020 com o sonho de
             revolucionar a forma como as pessoas compram online, mesmo com
@@ -148,8 +163,7 @@ function Sobre() {
             compra, mesmo que o site tenha algumas falhas intencionais para
             teste.
           </p>
-          {/* Problema: Informação duplicada */}
-          <p className="text-gray-400 text-sm">
+          <p className="text-sm" style={{ color: "#aa8866" }}>
             *Fundada em 2020, a BugMart completa 6 anos de mercado em 2026
           </p>
         </div>
@@ -157,27 +171,40 @@ function Sobre() {
 
       {/* Missão, Visão e Valores */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+        <div
+          className="bg-white rounded-lg shadow-lg p-6 text-center"
+          style={{ transform: "translateY(3px)" }}
+        >
           <span className="text-4xl block mb-3">🎯</span>
-          <h3 className="text-xl font-bold mb-2">Missão</h3>
-          <p className="text-gray-600">
+          <h3 className="text-xl font-bold mb-2" style={{ color: "#664422" }}>
+            Missão
+          </h3>
+          <p className="text-gray-600" style={{ fontSize: "13px" }}>
             Oferecer produtos de qualidade com preços acessíveis e atendimento
             excepcional
           </p>
         </div>
-
-        <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+        <div
+          className="bg-white rounded-lg shadow-lg p-6 text-center"
+          style={{ transform: "translateY(-3px)" }}
+        >
           <span className="text-4xl block mb-3">👁️</span>
-          <h3 className="text-xl font-bold mb-2">Visão</h3>
-          <p className="text-gray-600">
+          <h3 className="text-xl font-bold mb-2" style={{ color: "#664422" }}>
+            Visão
+          </h3>
+          <p className="text-gray-600" style={{ fontSize: "13px" }}>
             Ser referência em e-commerce na América Latina até 2030
           </p>
         </div>
-
         <div className="bg-white rounded-lg shadow-lg p-6 text-center">
           <span className="text-4xl block mb-3">💎</span>
-          <h3 className="text-xl font-bold mb-2">Valores</h3>
-          <ul className="text-gray-600 text-left list-disc list-inside">
+          <h3 className="text-xl font-bold mb-2" style={{ color: "#664422" }}>
+            Valores
+          </h3>
+          <ul
+            className="text-left list-disc list-inside"
+            style={{ fontSize: "12px", color: "#665544" }}
+          >
             {valores.map((valor, index) => (
               <li key={index}>
                 <strong>{valor.titulo}:</strong>{" "}
@@ -190,17 +217,21 @@ function Sobre() {
 
       {/* Equipe */}
       <div className="mb-8">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-3xl"></span>
-          <h2 className="text-2xl font-bold text-gray-800">Nossa Equipe</h2>
-          {/* Problema: Mensagem de erro */}
-        </div>
-
+        <h2
+          className="text-2xl font-bold mb-6"
+          style={{ color: "#664422", textAlign: "center" }}
+        >
+          Nossa Equipe
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {equipe.map((membro, index) => (
             <div
               key={index}
               className="bg-white rounded-lg shadow-lg overflow-hidden text-center"
+              style={{
+                transform:
+                  index % 2 === 0 ? "rotate(0.5deg)" : "rotate(-0.5deg)",
+              }}
             >
               <img
                 src={
@@ -210,17 +241,24 @@ function Sobre() {
                 alt={membro.nome || "Membro da equipe"}
                 className="w-32 h-32 rounded-full mx-auto mt-6 object-cover"
                 loading="eager"
+                style={{ opacity: 0.95 }}
               />
               <div className="p-4">
-                <h3 className="font-bold text-lg">
+                <h3 className="font-bold text-lg" style={{ color: "#664422" }}>
                   {membro.nome || "Diego Bouzada"}
                 </h3>
                 <p className="text-blue-600 text-sm mb-2">{membro.cargo}</p>
-                <p className="text-gray-600 text-sm">
+                <p
+                  className="text-gray-600 text-sm"
+                  style={{ fontSize: "11px" }}
+                >
                   {membro.descricao || "Descrição em breve..."}
                 </p>
                 {membro.redeSocial && (
-                  <p className="text-gray-400 text-xs mt-2">
+                  <p
+                    className="text-gray-400 text-xs mt-2"
+                    style={{ fontFamily: "Courier New" }}
+                  >
                     {membro.redeSocial}
                   </p>
                 )}
@@ -231,7 +269,10 @@ function Sobre() {
       </div>
 
       {/* Diferenciais */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg p-8 mb-8">
+      <div
+        className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg p-8 mb-8"
+        style={{ borderRadius: "30px 5px 30px 5px" }}
+      >
         <h2 className="text-2xl font-bold text-center mb-6">
           Por que escolher a BugMart?
         </h2>
@@ -261,22 +302,21 @@ function Sobre() {
 
       {/* Contato */}
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="text-3xl"></span>
-          <h2 className="text-2xl font-bold text-gray-800">Fale Conosco</h2>
-        </div>
+        <h2 className="text-2xl font-bold mb-4" style={{ color: "#664422" }}>
+          Fale Conosco
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <p className="text-gray-600 mb-2">
+            <p className="mb-2" style={{ color: "#665544", fontSize: "14px" }}>
               <strong>Email:</strong> contato@bugmart.com
             </p>
-            <p className="text-gray-600 mb-2">
+            <p className="mb-2" style={{ color: "#665544", fontSize: "14px" }}>
               <strong>Telefone:</strong> (32) 4000-0000
             </p>
-            <p className="text-gray-600 mb-2">
+            <p className="mb-2" style={{ color: "#665544", fontSize: "14px" }}>
               <strong>WhatsApp:</strong> (32) 9 9999-9999
             </p>
-            <p className="text-gray-600">
+            <p style={{ color: "#665544", fontSize: "14px" }}>
               <strong>Endereço:</strong> Rua Tiradentes, 404 - Muriaé, MG
             </p>
           </div>
@@ -284,10 +324,10 @@ function Sobre() {
             <button
               onClick={enviarEmail}
               className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors"
+              style={{ borderRadius: "20px 5px" }}
             >
               Enviar Mensagem
             </button>
-            {/* Problema: Botão que não funciona */}
             <button
               onClick={() => {
                 alert("Redirecionando para o WhatsApp...");
@@ -296,10 +336,14 @@ function Sobre() {
                 }, 1500);
               }}
               className="w-full bg-green-500 text-white py-2 rounded mt-2 hover:bg-green-600 transition-colors"
+              style={{ borderRadius: "5px 20px" }}
             >
               Falar no WhatsApp
             </button>
-            <p className="text-xs text-gray-400 text-center mt-3">
+            <p
+              className="text-xs text-center mt-3"
+              style={{ color: "#aa8866" }}
+            >
               *Atendimento de Segunda a Sexta, 9h às 18h
             </p>
           </div>
@@ -307,27 +351,28 @@ function Sobre() {
       </div>
 
       {/* Rodapé da página */}
-      <div className="mt-8 text-center text-gray-400 text-sm">
-        <p> © 2026 BugMart - Todos os direitos reservados</p>
+      <div className="mt-8 text-center text-sm" style={{ color: "#aa8866" }}>
+        <p>© 2026 BugMart - Todos os direitos reservados</p>
         <p className="mt-1">
           <a
             href="#"
             onClick={(e) => e.preventDefault()}
             className="hover:text-gray-600"
+            style={{ color: "#886622" }}
           >
             Termos de Uso
           </a>{" "}
-          |{" "}
+          |
           <a
             href="#"
             onClick={(e) => e.preventDefault()}
-            className="hover:text-gray-600"
+            className="hover:text-gray-600 ml-1"
+            style={{ color: "#886622" }}
           >
             Política de Privacidade
           </a>
         </p>
-        {/* Problema: Links quebrados propositalmente */}
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs mt-2" style={{ color: "#aa8866" }}>
           BugMart - Onde os bugs são parte da experiência!
         </p>
       </div>

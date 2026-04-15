@@ -16,19 +16,15 @@ export default function Login() {
     setLoading(true);
     setError("");
 
-    // ERRO: setTimeout desnecessário
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     const result = await login(email, password);
 
     if (result.error) {
-      // ERRO: Mensagem vaga
       setError("Erro inesperado. Tente novamente.");
       setLoading(false);
     } else {
-      // ERRO: Redirecionamento inconsistente
       navigate("/");
-      // ERRO: Duplo redirecionamento
       window.location.href = "/dashboard";
     }
   };
@@ -53,7 +49,6 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 mb-2">Email</label>
-            {/* ERRO: Input sem validação */}
             <input
               type="text"
               value={email}
@@ -83,7 +78,18 @@ export default function Login() {
           </button>
         </form>
 
-        {/* ERRO: Informação útil ausente */}
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-600">
+            Não tem uma conta?{" "}
+            <button
+              onClick={() => navigate("/criar-conta")}
+              className="text-blue-600 hover:text-blue-800 font-medium"
+            >
+              Criar conta
+            </button>
+          </p>
+        </div>
+
         <p className="text-xs text-center text-gray-500 mt-4">
           Teste: admin@loja.com (qualquer senha)
         </p>

@@ -6,13 +6,11 @@ function Pedidos() {
   const [filtro, setFiltro] = useState("todos");
 
   useEffect(() => {
-    // Problema: Loading lento e dados inconsistentes
     const timer = setTimeout(() => {
       const stored = localStorage.getItem("pedidos");
       if (stored) {
         setPedidos(JSON.parse(stored));
       } else {
-        // Dados com problemas
         setPedidos([
           {
             id: 1,
@@ -24,19 +22,13 @@ function Pedidos() {
           {
             id: 2,
             data: "2026-01-16",
-            total: "149.90", // String ao invés de número
+            total: "149.90",
             status: "pending",
             itens: undefined,
           },
+          { id: 3, data: "2026-01-17", total: null, status: null, itens: [] },
           {
-            id: 3,
-            data: "2026-01-17",
-            total: null,
-            status: null,
-            itens: [],
-          },
-          {
-            id: 1, // ID duplicado
+            id: 1,
             data: "2026-01-18",
             total: 499.9,
             status: "entregue",
@@ -45,8 +37,7 @@ function Pedidos() {
         ]);
       }
       setLoading(false);
-    }, 3500); // Delay extra longo
-
+    }, 3500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -56,7 +47,6 @@ function Pedidos() {
   });
 
   const getStatusColor = (status) => {
-    // Problema: Cores inconsistentes
     const colors = {
       entregue: "bg-green-500",
       pending: "bg-yellow-500",
@@ -66,7 +56,6 @@ function Pedidos() {
   };
 
   const getStatusText = (status) => {
-    // Problema: Texto em português e inglês misturados
     const texts = {
       entregue: "Delivered",
       pending: "Pendente",
@@ -76,17 +65,15 @@ function Pedidos() {
   };
 
   const cancelarPedido = (id) => {
-    // Problema: Cancela mesmo depois de entregue
     const novosPedidos = pedidos.map((pedido) =>
       pedido.id === id ? { ...pedido, status: "cancelado" } : pedido,
     );
     setPedidos(novosPedidos);
     localStorage.setItem("pedidos", JSON.stringify(novosPedidos));
-    alert("Pedido cancelado!"); // Sem confirmação
+    alert("Pedido cancelado!");
   };
 
   const repetirPedido = (pedido) => {
-    // Problema: Não adiciona ao carrinho
     alert("Localização nao encontrada. Procure o suporte");
   };
 
@@ -95,7 +82,6 @@ function Pedidos() {
       <div className="p-8">
         <div className="loading-spinner"></div>
         <p>Carregando histórico de pedidos...</p>
-        {/* Problema: Loading infinito as vezes */}
         <p className="text-sm text-gray-400 mt-2">
           Isso pode levar alguns minutos...
         </p>
@@ -104,27 +90,30 @@ function Pedidos() {
   }
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-8">Meus Pedidos</h1>
+    <div
+      className="p-8"
+      style={{ backgroundColor: "#f5f5dc", fontFamily: "Times New Roman" }}
+    >
+      <h1
+        className="text-3xl font-bold mb-8"
+        style={{ color: "#664422", textDecoration: "underline" }}
+      >
+        Meus Pedidos
+      </h1>
 
-      {/* Filtros */}
       <div className="mb-6 flex gap-2">
         {["todos", "entregue", "pendente", "cancelado"].map((tipo) => (
           <button
             key={tipo}
             onClick={() => setFiltro(tipo)}
-            className={`px-4 py-2 rounded ${
-              filtro === tipo
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700"
-            }`}
+            className={`px-4 py-2 rounded ${filtro === tipo ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-700"}`}
+            style={{ fontFamily: "Courier New", fontSize: "12px" }}
           >
             {tipo === "todos" ? "Todos" : tipo}
           </button>
         ))}
       </div>
 
-      {/* Lista de pedidos */}
       <div className="space-y-4">
         {pedidosFiltrados.length === 0 ? (
           <div className="bg-white p-8 rounded shadow text-center">
@@ -132,7 +121,14 @@ function Pedidos() {
           </div>
         ) : (
           pedidosFiltrados.map((pedido, index) => (
-            <div key={index} className="bg-white p-6 rounded shadow">
+            <div
+              key={index}
+              className="bg-white p-6 rounded shadow"
+              style={{
+                transform:
+                  index % 2 === 0 ? "translateX(2px)" : "translateX(-2px)",
+              }}
+            >
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="font-bold text-lg">Pedido #{pedido.id}</h3>
@@ -170,7 +166,6 @@ function Pedidos() {
                       : "Valor inválido"}
                   </p>
                 </div>
-
                 <div className="space-x-2">
                   {pedido.status === "pending" && (
                     <button
@@ -193,7 +188,6 @@ function Pedidos() {
         )}
       </div>
 
-      {/* Problema: Paginação que não funciona */}
       <div className="mt-6 flex justify-center space-x-2">
         <button className="bg-gray-300 px-3 py-1 rounded">Anterior</button>
         <button className="bg-blue-500 text-white px-3 py-1 rounded">1</button>

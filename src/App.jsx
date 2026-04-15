@@ -4,13 +4,14 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Sidebar from "./components/sidebar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
+import CriarConta from "./pages/CriarConta";
 import Produtos from "./pages/Produtos";
 import Perfil from "./pages/Perfil";
 import Carrinho from "./pages/Carrinho";
 import Pedidos from "./pages/Pedidos";
 import Configuracoes from "./pages/Configuracoes";
 import Suporte from "./pages/Suporte";
-import Sobre from "./pages/Sobre"; // 🟢 IMPORT ADICIONADO
+import Sobre from "./pages/Sobre";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -37,8 +38,8 @@ function App() {
         <div className="flex-1 ml-64">
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/criar-conta" element={<CriarConta />} />
 
-            {/* Página inicial agora é Produtos */}
             <Route
               path="/"
               element={
@@ -102,7 +103,6 @@ function App() {
               }
             />
 
-            {/* 🟢 ROTA SOBRE NÓS ADICIONADA */}
             <Route
               path="/sobre"
               element={
